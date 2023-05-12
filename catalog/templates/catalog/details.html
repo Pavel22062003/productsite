@@ -1,0 +1,18 @@
+{% extends 'catalog/base.html' %}
+{% load cuttext %}
+{% load mediapath %}
+
+{% block content%}
+
+<div class="p-5 mb-4 bg-light rounded-3">
+
+    <div class="container-fluid py-5">
+        <img src="{{object.img|mediapath}}" width="300" height="211" class="img-fluid" alt="img-fluid">
+        <h1 class="display-5 fw-bold"></h1>
+        <p class="col-md-8 fs-4">{{object.description}}</p>
+        <p class="col-md-8 fs-4"> {{object.creation_date}}</p>
+        <p><a class="btn btn-primary btn-lg" href="{% url 'catalog:index' %}">Назад &raquo;</a></p>
+
+    </div>
+</div>
+{% endblock %}
