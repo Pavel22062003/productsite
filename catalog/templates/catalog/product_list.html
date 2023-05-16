@@ -3,19 +3,27 @@
 {%load cuttext%}
 
 {% block content %}
+
 {% for object in object_list%}
+
+
 <div class="col-lg-4">
     <div class="card">
         <div class="card-body">
-
-
-             <p><img src="{{object.img|mediapath}}" width="300" height="300" alt="Винни-Пух"></p>
+            {% if object.img%}
+            <p><img src="{{object.img|mediapath}}" width="300" height="300" alt="Винни-Пух"></p>
+            {%endif%}
 
             <h2>{{object.name}}
             </h2>
             <p>{{object.description|cut}} </p>
             <p>{{object.creation_date}}</p>
+<!--            <div class="col-12">-->
+<!--                <a href="#" class="btn btn-primary">создать</a>-->
+<!--            </div>-->
             <p><a class="btn btn-secondary" href="{% url 'catalog:details' object.pk %}">View details &raquo;</a></p>
+            <p><a class="btn btn-danger" href="{% url 'catalog:delete' object.pk %}">Удалить &raquo;</a></p>
+
         </div><!-- /.col-lg-4 -->
     </div>
 </div>

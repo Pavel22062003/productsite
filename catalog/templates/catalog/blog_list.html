@@ -1,0 +1,33 @@
+{%extends 'catalog/base.html'%}
+{% block content %}
+{%load mediapath%}
+
+<p><a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'catalog:blog_create'%}">Добавить пост </a></p>
+
+
+{% for object in object_list%}
+<div class="card">
+    <div class="row g-0">
+        <div class="col-5 col-sm-4">
+            {%if object.preview%}
+            <img src="{{object.preview|mediapath}}" class="img-fluid w-100" alt="card-horizontal-image">
+
+            {%endif%}
+        </div>
+        <div class="col-7 col-sm-8">
+            <div class="card-body">
+                <h5 class="card-title">{{object.header|title}}</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content.</p>
+                <p class="card-text"><small class="text-muted">Дата создания - {{object.creation_date}}</small></p>
+                <p class="card-text"><small class="text-muted">Количество просмотров - {{object.view_amount}}</small></p>
+                <p><a class="btn btn-primary" href="{% url 'catalog:blog_detail' object.pk %}">Посмотреть &raquo;</a></p>
+                <p><a class="btn btn-warning" href="{% url 'catalog:blog_update' object.pk %}">Изменить &raquo;</a></p>
+                <p><a class="btn btn-danger" href="{% url 'catalog:blog_delete' object.pk %}">Удалить &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+{%endblock%}
+

@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html'%}
+
+{%block content%}
+{%load mediapath%}
+<div class="row g-5">
+    <div class="col-md-8">
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">
+            Статья
+        </h3>
+        <article class="blog-post">
+            <h2 class="blog-post-title mb-1">{{object.header|title}}</h2>
+            <p class="blog-post-meta">{{object.creation_date}}</p>
+
+            <p>{{object.content}}</p>
+            <hr>
+            <img src="{{object.preview|mediapath}}" class="card-img-bottom" alt="card-img-bottom">
+            <p></p>
+            <p><a class="btn btn-primary" href="{% url 'catalog:blog_view'  %}">Назад &raquo;</a></p>
+
+
+
+
+        </article>
+    </div>
+</div>
+{%endblock%}

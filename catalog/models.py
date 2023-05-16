@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -24,3 +25,23 @@ class Category(models.Model):
     class META:
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
+
+
+class Blog(models.Model):
+
+    header = models.CharField(max_length=100, verbose_name='Заголовок')
+    slug = models.SlugField(max_length=255, db_index=True, verbose_name='URL')
+    content = models.TextField(verbose_name='содержимое')
+    preview = models.ImageField(upload_to='blog/', verbose_name='превью', **NULLABLE)
+    creation_date = models.DateField(verbose_name='дата создания')
+    publication_sign = models.BooleanField(verbose_name='признак публикации', default=True)
+    view_amount = models.IntegerField(verbose_name='количество просмотров', default=0)
+
+    def __str__(self):
+        return self.header
+
+
+
+    class Meta:
+        verbose_name = 'Блог'
+        verbose_name_plural = 'Блоги'
