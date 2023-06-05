@@ -1,5 +1,7 @@
 {% extends 'catalog/base.html'%}
+
 {% block content%}
+{% load crispy_forms_tags %}
 
 <div class="col-6">
     <div class="card">
@@ -9,9 +11,10 @@
         <div class="card-body">
             <form method="post">
                 {% csrf_token %}
-                {{form.as_p}}
+                {{form|crispy}}
 
-                <input class="btn btn-primary" type="submit" value="{% if object %}Изменить{% else %} Создать {% endif %} ">
+                <input class="btn btn-primary" type="submit"
+                       value="{% if object %}Изменить{% else %} Создать {% endif %} ">
             </form>
         </div>
     </div>

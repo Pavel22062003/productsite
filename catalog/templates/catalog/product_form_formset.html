@@ -1,7 +1,6 @@
 {% extends 'catalog/base.html'%}
 {% block content%}
-{% load crispy_forms_tags %}
-
+{% load crispy_forms_tags%}
 
 <form class="row" method="post">
     <div class="col-6">
@@ -12,7 +11,6 @@
             <div class="card-body">
 
                 {% csrf_token %}
-
                 {{form|crispy}}
 
                 <input class="btn btn-primary" type="submit"
@@ -21,7 +19,25 @@
             </div>
         </div>
     </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Версии</h3>
+            </div>
+            <div class="card-body">
+                <div class="table"></div>
+                {{formset.management_form}}
+                {% for form in formset.forms%}
+               
+                     {{form|crispy}}
 
+                {%endfor%}
+            </div>
+
+
+        </div>
+    </div>
+    </div>
 
 </form>
 
