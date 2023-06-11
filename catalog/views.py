@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -13,14 +14,10 @@ from .models import Product, Blog, Version
 #     return render(request, 'catalog/product_list.html', context)
 
 
-class ProductView(ListView):
+class ProductView(LoginRequiredMixin, ListView):
     model = Product
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context_data = super().get_context_data()
-        context_data['title'] = 'название'
 
-        return context_data
 
 
 class ProductDetail(DetailView):
@@ -33,16 +30,46 @@ class ProductCreate(CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
 
+    def form_valid(self, form):
+
+        instance = form.save()
+        instance.author = self.request.user
+
+        return super().form_valid(form)
+
 
 class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
 
 
-class ProductUpdate(UpdateView):
+class ProductUpdate( UserPassesTestMixin, UpdateView):
     model = Product
+  #  permission_required = 'catalog.change_product'
     form_class = ProductForm
     template_name = 'catalog/product_form_formset.html'
+
+    def test_func(self):
+        user = self.request.user
+        obj = self.get_object()
+
+        return user.groups.filter(name='moderators').exists() or user == obj.author
+
+    # def get_form(self, form_class=None):
+    #     form = super().get_form(form_class)
+    #     obj = self.get_object()
+    #     if obj.author == self.request.user:
+    #         return form
+    #
+    #     if not self.request.user.has_perm('catalog.can_ban_publication_product'):
+    #         form.fields['publication_sign'].disabled = True  # Запрещаем изменение поля "категория"
+    #     if not self.request.user.has_perm('catalog.can_change_description_product'):
+    #         form.fields['description'].disabled = True  # Запрещаем изменение поля "категория"
+    #     if not self.request.user.has_perm('catalog.can_change_category_product'):
+    #         form.fields['category'].disabled = True  # Запрещаем изменение поля "категория"
+    #     return form
+
+
 
     def get_success_url(self):
         obj = self.object
@@ -103,6 +130,8 @@ class BlogDelete(DeleteView):
     success_url = reverse_lazy('catalog:blog_view')
 
 
-class BlogUpdate(UpdateView):
+class BlogUpdate( UpdateView):
     model = Blog
     fields = ('header', 'content', 'content', 'creation_date')
+
+

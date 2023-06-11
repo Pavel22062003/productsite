@@ -29,7 +29,12 @@
 <!--            </div>-->
             <p><a class="btn btn-primary" href="{% url 'catalog:details' object.pk %}">Подробнее &raquo;</a></p>
             <p><a class="btn btn-danger" href="{% url 'catalog:delete' object.pk %}">Удалить &raquo;</a></p>
+
+            {% if object.author == user %}
+
+
             <p><a class="btn btn-success" href="{% url 'catalog:product_update' object.pk %}">Изменить &raquo;</a></p>
+            {% endif%}
 
         </div><!-- /.col-lg-4 -->
     </div>

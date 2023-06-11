@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'catalog',
     'crispy_forms',
     'crispy_bootstrap4',
+    'users',
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -134,4 +135,24 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/'
 
+#tekyjiyzjrzttavt
+EMAI_HOST = 'smtp.yandex.ru'
+
+EMAIL_PORT = 465
+
+EMAIL_HOST_USER = 'sir.iakowlew-pawel@yandex.ru'
+
+EMAIL_HOST_PASSWORD = 'tekyjiyzjrzttavt'
+
+EMAIL_USE_TLS = False
+
+EMAIL_USE_SSL = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# gmail_app = uyqlyvzyvouzvkno

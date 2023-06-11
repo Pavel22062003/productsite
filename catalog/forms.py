@@ -40,15 +40,16 @@ class ProductForm(forms.ModelForm):
             'description',
             'category',
             'price_for_buy',
-            Submit('submit', 'Submit', css_class='btn-primary')
-        )
+            'publication_sign',
+            Submit('submit', 'Submit', css_class='btn-primary'))
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category', 'price_for_buy']
+        fields = ['name', 'description', 'category', 'price_for_buy', 'publication_sign']
 
     def clean_name(self):
-        stop_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
+        stop_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                      'радар']
         name = self.cleaned_data.get('name')
         for i in stop_words:
             if i in name:
