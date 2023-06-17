@@ -1,7 +1,7 @@
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
     PasswordResetCompleteView
 
-from .services import send_order_email
+
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
@@ -27,7 +27,7 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
-        send_order_email()
+
         return super().form_valid(form)
 
 

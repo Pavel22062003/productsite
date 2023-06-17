@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 
 from .forms import MyForm, ProductForm, ProductVersion
 from .models import Product, Blog, Version
+from .services.category import all_category
 
 
 # Create your views here.
@@ -16,6 +17,12 @@ from .models import Product, Blog, Version
 
 class ProductView(LoginRequiredMixin, ListView):
     model = Product
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['categories'] = all_category()
+
+        return context
 
 
 
