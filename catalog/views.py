@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 from .forms import MyForm, ProductForm, ProductVersion
 from .models import Product, Blog, Version
 from .services.category import all_category
+from .services.mail import send_order_email
 
 
 # Create your views here.
@@ -41,6 +42,7 @@ class ProductCreate(CreateView):
 
         instance = form.save()
         instance.author = self.request.user
+        send_order_email()
 
         return super().form_valid(form)
 
